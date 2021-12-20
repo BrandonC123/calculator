@@ -1,0 +1,29 @@
+body {
+}
+
+.calc-btns {
+    display: flex;
+    gap: 10px;
+    background-color: lightgray;
+    border: solid 2px black;
+    width: 340px;
+    padding: 10px;
+}
+
+#display {
+    background-color: white;
+    padding: 5px;
+    border: solid 2px black;
+}
+
+.row {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+
+button {
+    height: 55px;
+    width: 75px;
+}
