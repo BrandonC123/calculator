@@ -1,5 +1,5 @@
 function add(num1, num2) {
-    return num1 + num2;
+    return +num1 + +num2;
 }
 
 function sub(num1, num2) {
@@ -45,6 +45,7 @@ numbers.forEach((btn) => {
 const operations = document.querySelectorAll(".op-btn");
 let value1;
 let op;
+let value2;
 let counter = 0;
 
 operations.forEach((btn) => {
@@ -55,21 +56,32 @@ operations.forEach((btn) => {
 });
 
 function operator(value1) {
-    clear();
+    let screen = true;
+    if (counter >= 1) {
+        console.log("t");
+        calculate();
+        value1 = displayValue;
+        screen = false;
+    }
+    clear(screen);
+    counter++;
     return value1;
 }
 
-function clear() {
-    for (let i = 0; i < displayArray.length; i++) {
-        display.removeChild(displayArray[i]);
+function clear(screen) {
+    if (screen) {
+        for (let i = 0; i < displayArray.length; i++) {
+            display.removeChild(displayArray[i]);
+        }
+        displayArray = [];
     }
-    displayArray = [];
+    displayValue = "";
+    counter = 0;
 }
 
 const clearBtn = document.querySelector("#clear");
 clearBtn.addEventListener("click", () => {
-    clear();
-    displayValue = "";
+    clear(true);
 });
 
 const equalsBtn = document.querySelector("#equals");
@@ -81,8 +93,9 @@ function calculate() {
     const sol = document.createElement("div");
     sol.textContent = operate(op, value1, displayValue);
     console.log(`${value1} ${displayValue}`);
-    clear();
+    clear(true);
     display.appendChild(sol);
     displayValue = sol.textContent;
+    console.log(sol.textContent);
     displayArray.push(sol);
 }
