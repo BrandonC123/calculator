@@ -9,25 +9,31 @@ body {
     justify-content: center;
     width: 310px;
     padding: 40px 10px 10px 10px;
-    background-color: lightgray;
-    border: solid 2px rgb(109, 109, 109);
-    border-radius: 10px;
+    background-color: rgb(38, 72, 175);
+    /* border: solid 2px rgb(109, 109, 109); */
+    border-radius: 3px 3px 13px 13px;
 }
 
 .calc-btns {
     display: flex;
     gap: 10px;
-    background-color: lightgray;
+    background-color: rgb(38, 72, 175);
+    border: solid 2px rgb(97, 97, 97);
+    border-radius: 2px;
     padding: 10px;
+    margin-bottom: 15px;
 }
 
 #display {
     display: flex;
     justify-content: flex-end;
-    background-color: white;
+    background-color: lightgray;
     padding: 5px;
     border: solid 2px black;
     height: 55px;
+    font-family: "Montserrat", sans-serif;
+    font-size: 18px;
+    margin-bottom: 8px;
 }
 
 .row {
@@ -40,12 +46,26 @@ body {
     height: 110px;
 }
 
+.num-btn {
+    
+}
+
+#del {
+    background-color: red;
+    color: rgb(228, 228, 228);   
+}
+
+.op-btn {
+    background-color: red;
+    color: rgb(228, 228, 228);
+}
+
 button {
+    font-family: "Montserrat", sans-serif;
     height: 50px;
     width: 65px;
     border-radius: 5px;
     font-size: 24px;
-    color: rgb(233, 233, 218);
-    background-color: rgb(48, 48, 48);
+    color: darkblue;
+    background-color: rgb(228, 228, 228);
 }
-
