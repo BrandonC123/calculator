@@ -34,6 +34,10 @@ let displayArray = [];
 
 numbers.forEach((btn) => {
     btn.addEventListener("click", () => {
+        if (afterOP = true) {
+            clearDisplay();
+            afterOP = false;
+        }
         const num = document.createElement("div");
         num.textContent = btn.textContent;
         displayValue += num.textContent;
@@ -43,59 +47,42 @@ numbers.forEach((btn) => {
 });
 
 const operations = document.querySelectorAll(".op-btn");
+
 let value1;
-let op;
 let value2;
-let counter = 0;
+let op;
+let afterOP = false;
 
 operations.forEach((btn) => {
     btn.addEventListener("click", () => {
-        value1 = operator(displayValue);
+        getValue1();
         op = btn.textContent;
     });
 });
 
-function operator(value1) {
-    let screen = true;
-    if (counter >= 1) {
-        console.log("t");
-        calculate();
-        value1 = displayValue;
-        screen = false;
-    }
-    clear(screen);
-    counter++;
-    return value1;
+function getValue1 () {
+    value1 = displayValue;
+    displayValue = '';
+    afterOP = true;
 }
 
-function clear(screen) {
-    if (screen) {
-        for (let i = 0; i < displayArray.length; i++) {
-            display.removeChild(displayArray[i]);
-        }
-        displayArray = [];
-    }
-    displayValue = "";
-    counter = 0;
-}
-
-const clearBtn = document.querySelector("#clear");
-clearBtn.addEventListener("click", () => {
-    clear(true);
-});
-
-const equalsBtn = document.querySelector("#equals");
-equalsBtn.addEventListener("click", () => {
+const equalsBtn = document.querySelector('#equals');
+equalsBtn.addEventListener('click', () => {
     calculate();
 });
 
 function calculate() {
-    const sol = document.createElement("div");
-    sol.textContent = operate(op, value1, displayValue);
-    console.log(`${value1} ${displayValue}`);
-    clear(true);
-    display.appendChild(sol);
-    displayValue = sol.textContent;
+    value2 = displayValue;
+    clearDisplay();
+    let sol = document.createElement('div');
+    sol.textContent = operate(op, value1, value2);
     console.log(sol.textContent);
-    displayArray.push(sol);
+    display.appendChild(sol);
+}
+
+function clearDisplay() {
+    for (let i = 0; i < displayArray.length; i++) {
+        display.removeChild(displayArray[i]);
+    }
+    displayArray = [];
 }
