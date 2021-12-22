@@ -106,3 +106,9 @@ function clearDisplay(reset) {
         count = 0;
     } 
 }
+
+const delBtn = document.querySelector("#del");
+delBtn.addEventListener('click', () => {
+    display.removeChild(displayArray[displayArray.length - 1]);
+    displayArray.pop();
+});
