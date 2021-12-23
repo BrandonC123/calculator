@@ -11,7 +11,12 @@ function multiply(num1, num2) {
 }
 
 function divide(num1, num2) {
-    return num1 / num2;
+    let value = num1 / num2;
+    if ((num1 / num2) % 1 != 0) {
+        // value = (value.toPrecision(9));
+        value = add(value.toPrecision(9), 0);
+    }
+    return value;
 }
 
 function operate(op, num1, num2) {
@@ -85,12 +90,20 @@ function calculate() {
     console.log(displayValue);
     value2 = displayValue;
     clearDisplay(true);
-    let sol = document.createElement("div");
-    sol.textContent = operate(op, value1, value2);
+    if (value2 == 0 && op == '÷') {
+        displayToScreen("I DON'T THINK SO!");
+        return;
+    }
+    displayValue = displayToScreen(operate(op, value1, value2));
+    return displayValue;
+}
+
+function displayToScreen(text) {
+    const sol = document.createElement("div");
+    sol.textContent = text;
     console.log(value1 + " " + value2);
     displayArray.push(sol);
     console.log(sol.textContent);
-    displayValue = sol.textContent;
     display.appendChild(sol);
     afterOP = true;
     return sol.textContent;
@@ -111,4 +124,5 @@ const delBtn = document.querySelector("#del");
 delBtn.addEventListener('click', () => {
     display.removeChild(displayArray[displayArray.length - 1]);
     displayArray.pop();
+    displayValue = displayValue.substring(0, displayValue.length - 1);
 });
