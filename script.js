@@ -13,22 +13,27 @@ function multiply(num1, num2) {
 function divide(num1, num2) {
     let value = num1 / num2;
     if ((num1 / num2) % 1 != 0) {
-        // value = (value.toPrecision(9));
         value = add(value.toPrecision(9), 0);
     }
     return value;
 }
 
+function modulo(num1, num2) {
+    return num1 % num2;
+}
+
 function operate(op, num1, num2) {
     switch (op) {
-        case "÷":
-            return divide(num1, num2);
-        case "x":
-            return multiply(num1, num2);
-        case "-":
-            return sub(num1, num2);
         case "+":
             return add(num1, num2);
+        case "-":
+            return sub(num1, num2);
+        case "x":
+            return multiply(num1, num2);
+        case "÷":
+            return divide(num1, num2);
+        case "%":
+            return modulo(num1, num2);
     }
 }
 
@@ -55,6 +60,21 @@ numbers.forEach((btn) => {
         display.appendChild(num);
     });
 });
+
+function useKB(btn) {
+    const key = document.querySelector(`.num-btn[data-key = "${btn.keyCode}"]`);
+    const num = document.createElement("div");
+    if (afterOP == true) {
+        clearDisplay(false);
+        afterOP = false;
+    }
+    num.textContent = key.textContent;
+    displayValue += key.textContent;
+    displayArray.push(num);
+    display.appendChild(num);
+}
+
+window.addEventListener('keydown', useKB);
 
 const operations = document.querySelectorAll(".op-btn");
 
