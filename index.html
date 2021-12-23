@@ -2,6 +2,12 @@
 <html lang="en">
     <head>
         <link rel="stylesheet" href="styles.css" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap"
+            rel="stylesheet"
+        />
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -12,26 +18,26 @@
             <div id="display"></div>
             <div class="calc-btns">
                 <div class="row row-one">
-                    <button id="clear">AC</button>
-                    <button class="num-btn">7</button>
-                    <button class="num-btn">4</button>
-                    <button class="num-btn">1</button>
-                    <button class="num-btn">0</button>
+                    <button class="op-btn" id="clear">AC</button>
+                    <button data-key="55" class="num-btn">7</button>
+                    <button data-key="52" class="num-btn">4</button>
+                    <button data-key="49" class="num-btn">1</button>
+                    <button data-key="48" class="num-btn">0</button>
                 </div>
 
                 <div class="row row-two">
                     <button class="op-btn">+/-</button>
-                    <button class="num-btn">8</button>
-                    <button class="num-btn">5</button>
-                    <button class="num-btn">2</button>
-                    <button class="op-btn">.</button>
+                    <button data-key="56" class="num-btn">8</button>
+                    <button data-key="53" class="num-btn">5</button>
+                    <button data-key="50" class="num-btn">2</button>
+                    <button data-key="55" class="num-btn">.</button>
                 </div>
 
                 <div class="row row-three">
                     <button class="op-btn">%</button>
-                    <button class="num-btn">9</button>
-                    <button class="num-btn">6</button>
-                    <button class="num-btn">3</button>
+                    <button data-key="57" class="num-btn">9</button>
+                    <button data-key="54" class="num-btn">6</button>
+                    <button data-key="51" class="num-btn">3</button>
                     <button id="equals">=</button>
                 </div>
 
@@ -39,7 +45,8 @@
                     <button class="op-btn">÷</button>
                     <button class="op-btn">x</button>
                     <button class="op-btn">-</button>
-                    <button class="op-btn" id="add">+</button>
+                    <button class="op-btn">+</button>
+                    <button id="del">DEL</button>
                 </div>
             </div>
         </div>
