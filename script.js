@@ -58,8 +58,12 @@ numbers.forEach((btn) => {
 });
 
 function useKB(btn) {
-    const key = document.querySelector(`.num-btn[data-key = "${btn.keyCode}"]`);
-    displayToScreen(key);
+    if (numCounter < 10) {
+        const key = document.querySelector(
+            `.num-btn[data-key = "${btn.keyCode}"]`
+        );
+        displayToScreen(key);
+    }
 }
 
 window.addEventListener("keydown", useKB);
@@ -81,8 +85,22 @@ function getValue1() {
     }
     count++;
     displayValue = "";
+    numCounter = 0;
     afterOP = true;
 }
+
+const posNegBtn = document.querySelector("#pos-neg");
+posNegBtn.addEventListener("click", () => {
+    const sol = document.createElement("div");
+    if (displayValue.charAt(0) != "-") {
+        displayValue = "-" + displayValue;
+    } else {
+        displayValue = displayValue.substring(1, displayValue.length);
+    }
+    sol.textContent = displayValue;
+    clearDisplay(false);
+    displayToScreen(sol);
+});
 
 const equalsBtn = document.querySelector("#equals");
 equalsBtn.addEventListener("click", () => {
@@ -107,9 +125,9 @@ function calculate() {
 }
 
 //Calculate and display to screen
-function displayCalculate(text) {
+function displayCalculate(num) {
     const sol = document.createElement("div");
-    sol.textContent = text;
+    sol.textContent = num;
     console.log(value1 + " " + value2);
     displayArray.push(sol);
     console.log(sol.textContent);
@@ -133,7 +151,7 @@ function displayToScreen(btn) {
     numCounter++;
 }
 
-function checkDecimal (btn) {
+function checkDecimal(btn) {
     if (decimal === true && btn.textContent === ".") {
         return true;
     }
@@ -158,10 +176,12 @@ function clearDisplay(reset) {
 
 const delBtn = document.querySelector("#del");
 delBtn.addEventListener("click", () => {
-    display.removeChild(displayArray[displayArray.length - 1]);
-    if (displayValue.charAt(displayValue.length - 1) == ".") {
-        decimal = false;
+    if (displayArray.length >= 1) {
+        display.removeChild(displayArray[displayArray.length - 1]);
+        if (displayValue.charAt(displayValue.length - 1) == ".") {
+            decimal = false;
+        }
+        displayArray.pop();
+        displayValue = displayValue.substring(0, displayValue.length - 1);
     }
-    displayArray.pop();
-    displayValue = displayValue.substring(0, displayValue.length - 1);
 });
