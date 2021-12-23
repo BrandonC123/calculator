@@ -1,6 +1,7 @@
 body {
     display: flex;
     justify-content: center;
+    background-color: darkgray;
 }
 
 .calc-container {
@@ -10,7 +11,6 @@ body {
     width: 310px;
     padding: 40px 10px 10px 10px;
     background-color: rgb(38, 72, 175);
-    /* border: solid 2px rgb(109, 109, 109); */
     border-radius: 3px 3px 13px 13px;
 }
 
