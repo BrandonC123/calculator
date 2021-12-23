@@ -45,36 +45,24 @@ let value1;
 let value2;
 let op;
 let count = 0;
+let numCounter = 0;
+let decimal = false;
 let afterOP = false;
 
 numbers.forEach((btn) => {
     btn.addEventListener("click", () => {
-        if (afterOP == true) {
-            clearDisplay(false);
-            afterOP = false;
+        if (numCounter < 10) {
+            displayToScreen(btn);
         }
-        const num = document.createElement("div");
-        num.textContent = btn.textContent;
-        displayValue += num.textContent;
-        displayArray.push(num);
-        display.appendChild(num);
     });
 });
 
 function useKB(btn) {
     const key = document.querySelector(`.num-btn[data-key = "${btn.keyCode}"]`);
-    const num = document.createElement("div");
-    if (afterOP == true) {
-        clearDisplay(false);
-        afterOP = false;
-    }
-    num.textContent = key.textContent;
-    displayValue += key.textContent;
-    displayArray.push(num);
-    display.appendChild(num);
+    displayToScreen(key);
 }
 
-window.addEventListener('keydown', useKB);
+window.addEventListener("keydown", useKB);
 
 const operations = document.querySelectorAll(".op-btn");
 
@@ -110,15 +98,16 @@ function calculate() {
     console.log(displayValue);
     value2 = displayValue;
     clearDisplay(true);
-    if (value2 == 0 && op == '÷') {
-        displayToScreen("I DON'T THINK SO!");
+    if (value2 == 0 && op == "÷") {
+        displayCalculate("I DON'T THINK SO!");
         return;
     }
-    displayValue = displayToScreen(operate(op, value1, value2));
+    displayValue = displayCalculate(operate(op, value1, value2));
     return displayValue;
 }
 
-function displayToScreen(text) {
+//Calculate and display to screen
+function displayCalculate(text) {
     const sol = document.createElement("div");
     sol.textContent = text;
     console.log(value1 + " " + value2);
@@ -129,20 +118,50 @@ function displayToScreen(text) {
     return sol.textContent;
 }
 
+//Only display to screen
+function displayToScreen(btn) {
+    if (checkDecimal(btn)) return;
+    if (afterOP == true) {
+        clearDisplay(false);
+        afterOP = false;
+    }
+    const num = document.createElement("div");
+    num.textContent = btn.textContent;
+    displayValue += num.textContent;
+    displayArray.push(num);
+    display.appendChild(num);
+    numCounter++;
+}
+
+function checkDecimal (btn) {
+    if (decimal === true && btn.textContent === ".") {
+        return true;
+    }
+    if (btn.textContent == ".") {
+        decimal = true;
+    }
+    return false;
+}
+
 function clearDisplay(reset) {
     for (let i = 0; i < displayArray.length; i++) {
         display.removeChild(displayArray[i]);
     }
-    displayValue = '';
+    displayValue = "";
     displayArray = [];
     if (reset == true) {
         count = 0;
-    } 
+        decimal = false;
+        numCounter = 0;
+    }
 }
 
 const delBtn = document.querySelector("#del");
-delBtn.addEventListener('click', () => {
+delBtn.addEventListener("click", () => {
     display.removeChild(displayArray[displayArray.length - 1]);
+    if (displayValue.charAt(displayValue.length - 1) == ".") {
+        decimal = false;
+    }
     displayArray.pop();
     displayValue = displayValue.substring(0, displayValue.length - 1);
 });
