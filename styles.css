@@ -66,13 +66,10 @@ body {
     gap: 10px;
 }
 
-#del {
+.op-btn,
+#del,
+#pos-neg {
     background-color: rgb(226, 36, 36);
-    color: rgb(228, 228, 228);
-}
-
-.op-btn {
-    background-color: rgb(226, 36, 36);;
     color: rgb(228, 228, 228);
 }
 
