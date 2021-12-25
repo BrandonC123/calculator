@@ -46,6 +46,7 @@ let value2;
 let op;
 let count = 0;
 let numCounter = 0;
+let activeOP = false;
 let decimal = false;
 let afterOP = false;
 
@@ -72,21 +73,24 @@ const operations = document.querySelectorAll(".op-btn");
 
 operations.forEach((btn) => {
     btn.addEventListener("click", () => {
-        getValue1();
+        setValue1();
         op = btn.textContent;
     });
 });
 
-function getValue1() {
-    if (count >= 1) {
-        value1 = calculate();
-    } else {
-        value1 = displayValue;
+function setValue1() {
+    if (activeOP === false) {
+        if (count >= 1) {
+            value1 = calculate();
+        } else {
+            value1 = displayValue;
+        }
+        count++;
+        displayValue = "";
+        numCounter = 0;
+        afterOP = true;
+        activeOP = true;
     }
-    count++;
-    displayValue = "";
-    numCounter = 0;
-    afterOP = true;
 }
 
 const posNegBtn = document.querySelector("#pos-neg");
@@ -112,25 +116,37 @@ clearBtn.addEventListener("click", () => {
     clearDisplay(true);
 });
 
-function calculate() {
-    console.log(displayValue);
-    value2 = displayValue;
-    clearDisplay(true);
-    if (value2 == 0 && op == "÷") {
-        displayCalculate("I DON'T THINK SO!");
-        return;
+const delBtn = document.querySelector("#del");
+delBtn.addEventListener("click", () => {
+    if (displayArray.length >= 1 && afterOP === false) {
+        display.removeChild(displayArray[displayArray.length - 1]);
+        if (displayValue.charAt(displayValue.length - 1) == ".") {
+            decimal = false;
+        }
+        displayArray.pop();
+        displayValue = displayValue.substring(0, displayValue.length - 1);
     }
-    displayValue = displayCalculate(operate(op, value1, value2));
-    return displayValue;
+});
+
+function calculate() {
+    if (afterOP === false) {
+        value2 = displayValue;
+        clearDisplay(true);
+        if (value2 == 0 && op == "÷") {
+            displayCalculate("I DON'T THINK SO!");
+            return;
+        }
+        displayValue = displayCalculate(operate(op, value1, value2));
+        activeOP = false;
+        return displayValue;
+    }
 }
 
-//Calculate and display to screen
+//display to screen after calculation
 function displayCalculate(num) {
     const sol = document.createElement("div");
     sol.textContent = num;
-    console.log(value1 + " " + value2);
     displayArray.push(sol);
-    console.log(sol.textContent);
     display.appendChild(sol);
     afterOP = true;
     return sol.textContent;
@@ -139,7 +155,7 @@ function displayCalculate(num) {
 //Only display to screen
 function displayToScreen(btn) {
     if (checkDecimal(btn)) return;
-    if (afterOP == true) {
+    if (afterOP === true) {
         clearDisplay(false);
         afterOP = false;
     }
@@ -167,21 +183,10 @@ function clearDisplay(reset) {
     }
     displayValue = "";
     displayArray = [];
+    activeOP = false;
     if (reset == true) {
         count = 0;
         decimal = false;
         numCounter = 0;
     }
 }
-
-const delBtn = document.querySelector("#del");
-delBtn.addEventListener("click", () => {
-    if (displayArray.length >= 1) {
-        display.removeChild(displayArray[displayArray.length - 1]);
-        if (displayValue.charAt(displayValue.length - 1) == ".") {
-            decimal = false;
-        }
-        displayArray.pop();
-        displayValue = displayValue.substring(0, displayValue.length - 1);
-    }
-});
