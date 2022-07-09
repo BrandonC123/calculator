@@ -9,9 +9,8 @@ Calculate process:
     screen is cleared after user starts inputting value2.  
     -After equals is pressed display is cleared and calculations are made using the operate function.  
     -The answer is updated into displayValue & displayArray.  
-
-    -When chaining operations value1 will be set to the result of the initial values of value1 & value2.
-    -afterOP boolean is used for after an operation is used to clear screen when the user begins to input value2.
+    -When chaining operations value1 will be set to the result of the initial values of value1 & value2.  
+    -afterOP boolean is used for after an operation is used to clear screen when the user begins to input value2.  
 
 Conditions:
     -Prevents user from dividing by 0  
